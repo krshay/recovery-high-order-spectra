@@ -1,5 +1,5 @@
 # recovery-high-order-spectra
-Code for the paper Signal recovery from  a few linear measurements of its high-order spectra.
+Code for the paper "Signal recovery from  a few linear measurements of its high-order spectra".
 
 success_rate_check_Bispectrum.m reproduces Figure 1(a).
 
