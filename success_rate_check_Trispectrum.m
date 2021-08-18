@@ -1,26 +1,24 @@
-% importmanopt
-
 % Script for Figure 1(b)
-rng(1101);
+
+rng(1);
 
 N = 10;
-Ks = [10 11 12 15 18 20 25 37 50 75 100 200];
+Ks = [10, 11, 12, 14, 18, 20, 25, 50, 75, 100];
 NK = length(Ks);
 
-NumIters = 120;
+NumIters = 100;
 errs = zeros(NumIters, NK);
 costs = zeros(NumIters, NK);
 
 As = cell(NK, NumIters);
 ys = cell(NK, NumIters);
 xs = zeros(NumIters, N);
-sig_inits = zeros(NumIters, N);
 
 k1k2k3k4_map = calck1k2k3k4(N);
 
-for i=1:NumIters
+parfor i=1:NumIters
     display('iteration #' + string(i));
-    sig = rand(N, 1) + 1j * rand(N, 1);
+    sig = randn(N, 1) + 1j * randn(N, 1);
     x = fft(sig);
     
     xs(i, :) = x;
@@ -32,24 +30,28 @@ for i=1:NumIters
         ys{k, i} = As{k, i} * T_flat;
     end
     
-    sig_init1 = rand(N, 1) + 1j * rand(N, 1);
+    sig_init1 = randn(N, 1) + 1j * randn(N, 1);
     x_init1 = fft(sig_init1);
     
-    sig_init2 = rand(N, 1) + 1j * rand(N, 1);
+    sig_init2 = randn(N, 1) + 1j * randn(N, 1);
     x_init2 = fft(sig_init2);
     
-    sig_init3 = rand(N, 1) + 1j * rand(N, 1);
+    sig_init3 = randn(N, 1) + 1j * randn(N, 1);
     x_init3 = fft(sig_init3);
     
-    parfor k=1:NK
-        warning('off', 'manopt:getGradient:approx');
-        [z1, ~, cost1] = func_optimize(x_init1, ys{k, i}, As{k, i}, k1k2k3k4_map);
-        [z2, ~, cost2] = func_optimize(x_init2, ys{k, i}, As{k, i}, k1k2k3k4_map);
-        [z3, ~, cost3] = func_optimize(x_init3, ys{k, i}, As{k, i}, k1k2k3k4_map);
+    for k=1:NK
+        [z1, cost1] = optimize([real(x_init1); imag(x_init1)], ys{k, i}, As{k, i}, k1k2k3k4_map);
+        [z2, cost2] = optimize([real(x_init2); imag(x_init2)], ys{k, i}, As{k, i}, k1k2k3k4_map);
+        [z3, cost3] = optimize([real(x_init3); imag(x_init3)], ys{k, i}, As{k, i}, k1k2k3k4_map);
         zs = [z1, z2, z3];
         [M, I] = min([cost1, cost2, cost3]);
-        [err, shift, x_best] = calcError(x, zs(:, I));
-        errs(i, k) = err * 100;
+        Z = zs(:, I);
+        z = Z(1:N) + 1j * Z(N+1:end);
+        err1 = calcError(x, z);
+        err2 = calcError(x, -z);
+        err3 = calcError(x, 1j*z);
+        err4 = calcError(x, -1j*z);
+        errs(i, k) = min([err1, err2, err3, err4]) * 100;
         costs(i, k) = M;
     end
 end
@@ -60,7 +62,7 @@ figure;
 plot(Ks, success_rates);
 xlabel('K');
 ylabel('Success rate [%]');
-title(['Success rate vs. K, for N = ', num2str(N), '. Estimation from the trispectrum.']);
 ylim([0 100]);
 xlim([0 max(Ks)]);
 grid on; grid minor;
+
