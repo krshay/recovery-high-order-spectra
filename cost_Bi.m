@@ -1,5 +1,5 @@
 function [f] = cost_Bi(z, y, A, k1k2k3_map)
-%cost_Bispectrum Calculates the cost function for the optimization
+%cost_Bi Calculates the cost function for the optimization
 %using the Bispectrum; eq. (4.2)
 
 N = size(z, 1) / 2;

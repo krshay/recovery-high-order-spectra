@@ -2,10 +2,10 @@
 rng(1);
 
 N = 30;
-Ks = [30 31 32 35 40 50 62 75 100 125 150];
+Ks = [30 31 32 35 40 50 62 75 100 125 150 200 250];
 NK = length(Ks);
 
-NumIters = 100;
+NumIters = 1000;
 errs = zeros(NumIters, NK);
 costs = zeros(NumIters, NK);
 
@@ -61,5 +61,3 @@ ylabel('Success rate [%]');
 ylim([0 100]);
 xlim([0 max(Ks)]);
 grid on; grid minor;
-
-save data_3a.mat

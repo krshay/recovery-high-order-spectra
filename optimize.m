@@ -1,4 +1,6 @@
 function [z, cst] = optimize(z_init, y, A, map)
+%optimize Optimizes the cost function (based on the provided map - for the 
+%case of bispectrum or trispectrum) using fminunc
 
 if size(map, 2) == 3
     fun = @(z) cost_Bi(z, y, A, map);

@@ -1,4 +1,6 @@
 function A = calc_mat_bispectrum(K, N, k1k2k3_map)
+%calc_mat_bispectrum Calculates the sensing matrix that consists
+%of bispectra, for experiment 3a
 
 A = zeros(K, N^2);
 for k=1:K

@@ -5,7 +5,7 @@ N = 10;
 Ks = [10, 11, 12, 14, 18, 20, 25, 35, 50, 60, 75, 80, 100, 150];
 NK = length(Ks);
 
-NumIters = 100;
+NumIters = 1000;
 errs = zeros(NumIters, NK);
 costs = zeros(NumIters, NK);
 
@@ -62,5 +62,3 @@ ylabel('Success rate [%]');
 ylim([0 100]);
 xlim([0 max(Ks)]);
 grid on; grid minor;
-
-save data_3b.mat

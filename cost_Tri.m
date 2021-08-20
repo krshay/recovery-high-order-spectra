@@ -1,5 +1,5 @@
 function [f] = cost_Tri(z, y, A, k1k2k3k4_map)
-%func_cost_Trispectrum Calculates the cost and grad for the optimization
+%cost_Tri Calculates the cost and grad for the optimization
 %using the Trispectrum
 
 N = size(z, 1) / 2;

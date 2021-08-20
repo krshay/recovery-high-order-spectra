@@ -1,4 +1,6 @@
 function A = calc_mat_trispectrum(K, N, k1k2k3k4_map)
+%calc_mat_trispectrum Calculates the sensing matrix that consists
+%of trispectra, for experiment 3b
 
 A = zeros(K, N^3);
 for k=1:K
