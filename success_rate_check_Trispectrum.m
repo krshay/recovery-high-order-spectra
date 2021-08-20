@@ -1,9 +1,8 @@
 % Script for Figure 1(b)
-
 rng(1);
 
 N = 10;
-Ks = [10, 11, 12, 14, 18, 20, 25, 50, 75, 100];
+Ks = [10, 11, 12, 14, 18, 20, 25, 35, 50, 60, 75, 80, 100, 150];
 NK = length(Ks);
 
 NumIters = 100;
@@ -18,7 +17,7 @@ k1k2k3k4_map = calck1k2k3k4(N);
 
 parfor i=1:NumIters
     display('iteration #' + string(i));
-    sig = randn(N, 1) + 1j * randn(N, 1);
+    sig = randn(N, 1);
     x = fft(sig);
     
     xs(i, :) = x;
@@ -30,13 +29,13 @@ parfor i=1:NumIters
         ys{k, i} = As{k, i} * T_flat;
     end
     
-    sig_init1 = randn(N, 1) + 1j * randn(N, 1);
+    sig_init1 = randn(N, 1);
     x_init1 = fft(sig_init1);
     
-    sig_init2 = randn(N, 1) + 1j * randn(N, 1);
+    sig_init2 = randn(N, 1);
     x_init2 = fft(sig_init2);
     
-    sig_init3 = randn(N, 1) + 1j * randn(N, 1);
+    sig_init3 = randn(N, 1);
     x_init3 = fft(sig_init3);
     
     for k=1:NK
@@ -49,9 +48,7 @@ parfor i=1:NumIters
         z = Z(1:N) + 1j * Z(N+1:end);
         err1 = calcError(x, z);
         err2 = calcError(x, -z);
-        err3 = calcError(x, 1j*z);
-        err4 = calcError(x, -1j*z);
-        errs(i, k) = min([err1, err2, err3, err4]) * 100;
+        errs(i, k) = min([err1, err2]) * 100;
         costs(i, k) = M;
     end
 end
@@ -66,3 +63,4 @@ ylim([0 100]);
 xlim([0 max(Ks)]);
 grid on; grid minor;
 
+save data_1b.mat

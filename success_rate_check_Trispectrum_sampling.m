@@ -2,10 +2,10 @@
 rng(1);
 
 N = 10;
-Ks = [10, 11, 12, 14, 18, 20, 25, 50, 75, 100];
+Ks = [10, 11, 12, 14, 18, 20, 25, 35, 50, 60, 75, 80, 100, 150];
 NK = length(Ks);
 
-NumIters = 10;
+NumIters = 100;
 errs = zeros(NumIters, NK);
 costs = zeros(NumIters, NK);
 
@@ -68,4 +68,4 @@ ylim([0 100]);
 xlim([0 max(Ks)]);
 grid on; grid minor;
 
-
+save data_2b.mat

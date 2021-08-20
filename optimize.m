@@ -1,5 +1,4 @@
 function [z, cst] = optimize(z_init, y, A, map)
-% Requires Manopt: http://www.manopt.org/
 
 if size(map, 2) == 3
     fun = @(z) cost_Bi(z, y, A, map);
