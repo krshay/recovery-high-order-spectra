@@ -4,7 +4,7 @@ function A = calc_mat_bispectrum(K, N, k1k2k3_map)
 
 %   K is the number of samples
 %   N is the length of the signal
-%   k1k2k3_map is a N^2*3 matrix containing the triplet of frequencies
+%   k1k2k3_map is a N^2*3 matrix containing the triplets of frequencies
 
 A = zeros(K, N^2);
 for k=1:K

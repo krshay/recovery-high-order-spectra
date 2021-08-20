@@ -2,7 +2,7 @@ function T = calcTrispectrum(x, k1k2k3k4_map)
 %calcTrispectrum Calculates the Trispectrum; eq. (1.3)
 
 %   x is a complex N*1 vector of Fourier coefficients
-%   k1k2k3k4_map is a N^3*4 matrix containing the quadruple of frequencies
+%   k1k2k3k4_map is a N^3*4 matrix containing the quadruples of frequencies
 
 %   B = x[k1]x[k2]x[k3]x[-k1-k2-k3]
 
